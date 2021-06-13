@@ -3,6 +3,7 @@ package com.example.foodgrid;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 
 import com.example.foodgrid.databinding.ActivityUserOrderBinding;
+import com.example.foodgrid.model.UserOrderModel;
 
 import org.joda.time.DateTimeComparator;
 
@@ -36,6 +38,11 @@ public class UserOrder extends AppCompatActivity {
         setContentView(activityUserOrderBinding.getRoot());
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(UserOrder.this, R.layout.support_simple_spinner_dropdown_item, getQuantity());
         activityUserOrderBinding.foodQuantitySpinnerLayout.setAdapter(adapter);
+        Intent i = getIntent();
+        UserOrderModel userOrderModel = (UserOrderModel) i.getSerializableExtra("USER_ORDER");
+        if (userOrderModel != null) {
+            activityUserOrderBinding.addOrder.setText("Update Data");
+        }
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -83,16 +90,21 @@ public class UserOrder extends AppCompatActivity {
             public void onClick(View v) {
                 boolean checkOrder = checkValidation();
                 if (checkOrder) {
-                    activityUserOrderBinding.foodItemTextInputLayout.setError(null);
-                    activityUserOrderBinding.foodQuantityLayout.setError(null);
-                    activityUserOrderBinding.foodQuantityLayout.setError(null);
-                    activityUserOrderBinding.dateOfOrderTextInputLayout.setError(null);
-                    activityUserOrderBinding.dateOfOrderTextInputLayout.setError(null);
-                    activityUserOrderBinding.address.setError(null);
+                    clearError();
+                    //TODO add order
                 }
             }
         });
 
+    }
+
+    private void clearError() {
+        activityUserOrderBinding.foodItemTextInputLayout.setError(null);
+        activityUserOrderBinding.foodQuantityLayout.setError(null);
+        activityUserOrderBinding.foodQuantityLayout.setError(null);
+        activityUserOrderBinding.dateOfOrderTextInputLayout.setError(null);
+        activityUserOrderBinding.dateOfOrderTextInputLayout.setError(null);
+        activityUserOrderBinding.address.setError(null);
     }
 
     private boolean checkValidation() {
@@ -131,7 +143,7 @@ public class UserOrder extends AppCompatActivity {
         }
 
         if (activityUserOrderBinding.currentLocationSwitch.isChecked()) {
-            //select curren location
+            //TODO select current location
         } else if (activityUserOrderBinding.address.getEditText().getText().toString().isEmpty()) {
             activityUserOrderBinding.address.setError("Please enter address");
             validate = false;
@@ -142,6 +154,7 @@ public class UserOrder extends AppCompatActivity {
 
     private void updateOrderField() {
         activityUserOrderBinding.dateOfOrder.setText(sdf.format(calendar.getTime()));
+
     }
 
     private ArrayList<String> getQuantity() {
@@ -149,7 +162,6 @@ public class UserOrder extends AppCompatActivity {
         quantity.add("5 kg");
         quantity.add("20 kg");
         quantity.add("30 kg");
-
         return quantity;
     }
 }
