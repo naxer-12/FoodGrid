@@ -17,9 +17,19 @@
         <item name="colorButtonNormal">@color/orange</item>
         <item name="colorControlHighlight">@color/light_orange</item>
     </style>
+
     <style name="myButtonTheme" parent="Theme.AppCompat.Light">
         <item name="android:textColorPrimary">@color/orange</item>
         <item name="colorButtonNormal">@color/orange</item>
     </style>
 
+    <style name="AppTheme.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/AppTheme.TextInputLayout.OutlinedBox
+        </item>
+        <item name="hintTextAppearance">@style/HintTextAppearance</item>
+    </style>
+
+    <style name="HintTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">20sp</item> <!-- floating hint text size -->
+    </style>
 </resources>
