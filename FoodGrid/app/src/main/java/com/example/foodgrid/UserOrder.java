@@ -1,15 +1,14 @@
 package com.example.foodgrid;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodgrid.databinding.ActivityUserOrderBinding;
 import com.example.foodgrid.model.UserOrderModel;
@@ -26,6 +25,7 @@ import java.util.Locale;
 public class UserOrder extends AppCompatActivity {
 
     private static final String TAG = "USER ORDER";
+
     ActivityUserOrderBinding activityUserOrderBinding;
     private final Calendar calendar = Calendar.getInstance();
     private final String dateFormat = "MM/dd/yy";

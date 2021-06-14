@@ -96,13 +96,32 @@
         android:hint="Enter your password"
         />
 
+    <CheckBox
+        android:id="@+id/check_remember_me"
+        android:layout_width="31dp"
+        android:layout_height="37dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="11dp"
+        app:layout_constraintEnd_toStartOf="@id/label_remember_me"
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_password" />
+
+    <TextView
+        android:id="@+id/label_remember_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Remember me"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/check_remember_me"
+        app:layout_constraintTop_toBottomOf="@id/edit_password" />
+
     <TextView
         android:id="@+id/tv_forget_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Forgot your password?"
-
-        android:layout_marginTop="25dp"
         android:textSize="16sp"
         android:textColor="@color/light_grey"
         app:layout_constraintTop_toBottomOf="@id/edit_password"
@@ -138,14 +157,16 @@
         android:id="@+id/tv_register_now"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="Register Now"
-        android:textStyle="bold"
         android:textColor="@color/orange"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.01"
         app:layout_constraintStart_toEndOf="@id/tv_dont_have_account"
         app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
