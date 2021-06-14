@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    >
+    tools:context=".RegisterActivity">
 
     <ImageView
         android:id="@+id/iv_logo"
@@ -15,16 +14,17 @@
         android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.060000002" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_hello"
+        android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Hello"
+        android:text="Register"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,27 +33,41 @@
         />
 
     <TextView
-        android:id="@+id/tv_welcome_message"
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign into your account"
+        android:text="Name"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="18dp"
+        android:textColor="@color/light_grey"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_register"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_hello"
-        android:textSize="18sp"
-        android:textColor="@color/light_orange"
+        android:hint="Enter your name"
         />
 
     <TextView
         android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email ID"
+        android:text="Email"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="18dp"
         android:textColor="@color/light_grey"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_welcome_message"
+        app:layout_constraintTop_toBottomOf="@id/edit_name"
         app:layout_constraintStart_toStartOf="parent"
         />
 
@@ -67,85 +81,33 @@
         app:layout_constraintTop_toBottomOf="@id/tv_email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:hint="Enter your email id"
+        android:hint="Enter your email"
         />
 
     <TextView
-        android:id="@+id/tv_password"
+        android:id="@+id/tv_phone_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Password"
-        android:layout_marginLeft="18dp"
+        android:text="Phone number"
         android:layout_marginTop="25dp"
-        android:textSize="16sp"
+        android:layout_marginLeft="18dp"
         android:textColor="@color/light_grey"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/edit_email"
         app:layout_constraintStart_toStartOf="parent"
         />
 
     <EditText
-        android:id="@+id/edit_password"
+        android:id="@+id/edit_phone_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_password"
+        app:layout_constraintTop_toBottomOf="@id/tv_phone_number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:hint="Enter your password"
+        android:hint="Enter your phone number"
         />
-
-    <TextView
-        android:id="@+id/tv_forget_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Forgot your password?"
-
-        android:layout_marginTop="25dp"
-        android:textSize="16sp"
-        android:textColor="@color/light_grey"
-        app:layout_constraintTop_toBottomOf="@id/edit_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="18dp"
-        />
-
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="18dp"
-        android:backgroundTint="#F0AF51"
-        android:text="Login"
-        android:theme="@style/myButtonTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_forget_password" />
-
-    <TextView
-        android:id="@+id/tv_dont_have_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Don't have an account?"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginLeft="80dp"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_login" />
-
-    <TextView
-        android:id="@+id/tv_register_now"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register Now"
-        android:textStyle="bold"
-        android:textColor="@color/orange"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/tv_dont_have_account"
-        app:layout_constraintTop_toBottomOf="@id/btn_login" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
