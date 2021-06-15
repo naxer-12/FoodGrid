@@ -23,21 +23,21 @@ public class UserSession {
         editor = shared.edit();
     }
 
-    public void userLoginSession(String uEmail, String uPassword){
-        editor.putBoolean(USER_LOGIN_STATUS, true);
+    public void userLoginSession(String uEmail, String uPassword, Boolean uRememberMe){
+        editor.putBoolean(USER_LOGIN_STATUS, uRememberMe);
         editor.putString(KEY_EMAIL, uEmail);
         editor.putString(KEY_PASSWORD, uPassword);
-
         editor.commit();
     }
 
     public boolean isUserLoggedIn(){
+
         return shared.getBoolean(USER_LOGIN_STATUS, false);
     }
 
     public boolean checkLoginStatus(){
-        if(!this.isUserLoggedIn()){
-            Intent i = new Intent(context, MainActivity.class);
+        if(this.isUserLoggedIn()){
+            Intent i = new Intent(context, HomeActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);

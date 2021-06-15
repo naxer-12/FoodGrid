@@ -1,6 +1,7 @@
 package com.example.foodgrid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,9 +58,20 @@ public class ViewProfileActivity extends AppCompatActivity {
         binding.btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: Update profiel button clicked");
+                Log.d(TAG, "onClick: Update profile button clicked");
 
-//                Intent i = new Intent(this, )
+                Intent i = new Intent(getApplicationContext(), UpdateProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
+        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: Cancel button clicked");
+
+                Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(i);
             }
         });
     }

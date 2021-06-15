@@ -22,6 +22,11 @@ public interface UserDAO {
     @Query("UPDATE users SET password = :updatedPassword WHERE userId = :userId")
     public void updatePasswordById(int userId, String updatedPassword);
 
+    // update userStatus
+    @Query("UPDATE users SET userStatus = :updatedUserStatus WHERE userId = :userId")
+    public void updateUserStatus(int userId, Boolean updatedUserStatus);
+
+
     // update profile
     @Query("UPDATE users SET name = :updatedName, email = :updatedEmail, phoneNumber = :updatedPhoneNumber, address = :updatedAddress WHERE userId = :userId")
     public void updateProfile(int userId, String updatedName, String updatedEmail, String updatedPhoneNumber, String updatedAddress);
@@ -30,15 +35,8 @@ public interface UserDAO {
     @Query("DELETE FROM users WHERE userId = :userId")
     public void deleteProfile(int userId);
 
-    // get by email
-//    @Query("SELECT * FROM users WHERE email = :email ")
-//    public User getUser(String email);
-
-    //    @Query("SELECT user.name AS userName, book.name AS bookName " +
-//            "FROM user, book " +
-//            "WHERE user.id = book.user_id")
-//    public LiveData<List<UserBook>> loadUserAndBookNames();
-    @Query("SELECT * FROM users WHERE email = :email")
+    // get user by email
+     @Query("SELECT * FROM users WHERE email = :email")
     public User getUser(String email);
 
 

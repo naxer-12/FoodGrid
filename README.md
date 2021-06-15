@@ -30,4 +30,37 @@ Sign In, Sign Out, Sign up | Add Order
 Update profile | Order list
 Delete profile | View Order
 
+## Screen Shots
+
+   ### Login-in Page
+   <img style="-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://user-images.githubusercontent.com/38577874/122109006-803f7700-ce3a-11eb-810a-7c3f86e87382.png" width="250" height="500">
+   
+   ### Forgot Password Page
+   <img style="-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://user-images.githubusercontent.com/38577874/122109206-bb41aa80-ce3a-11eb-89d7-3059459a8509.png" width="250" height="500">
+
+  ### Register User Page
+  <img style="-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://user-images.githubusercontent.com/38577874/122109329-de6c5a00-ce3a-11eb-82a2-9f9d0902ccb5.png" width="250" height="500">
+
+  ### Order List Page
+  <img style="-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://user-images.githubusercontent.com/38577874/122109426-fe038280-ce3a-11eb-9095-763112c4f962.png" width="250" height="500">
+
+  ### Order Food Page
+  <img style="-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://user-images.githubusercontent.com/38577874/122109548-1e334180-ce3b-11eb-853f-4dd1e7cbc586.png" width="250" height="500">
+ 
+ ### Menu Options
+ <img style="-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://user-images.githubusercontent.com/38577874/122109643-3a36e300-ce3b-11eb-993b-5809bb6dde4c.png" width="250" height="500">
+ 
+ ### View Profile
+ <img style="-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://user-images.githubusercontent.com/38577874/122109747-576bb180-ce3b-11eb-9ff3-10d67eec37bf.png" width="250" height="500">
+ 
+ ### Update Profile
+ <img style="-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://user-images.githubusercontent.com/38577874/122109833-723e2600-ce3b-11eb-86c9-d49355f926a5.png" width="250" height="500">
+
+
+
+
+
+
+
+
 
