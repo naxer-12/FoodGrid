@@ -1,5 +1,6 @@
 package com.example.foodgrid;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.foodgrid.databinding.ActivityMainBinding;
@@ -39,9 +41,11 @@ public class MainActivity extends AppCompatActivity {
         this.dao = db.userDao();
 
         shared = getApplicationContext().getSharedPreferences("User", 0);
-        editor = shared.edit();
 
 
+        session = new UserSession(getApplicationContext());
+
+        session.checkLoginStatus();
         binding.tvRegisterNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,16 +86,53 @@ public class MainActivity extends AppCompatActivity {
             if(user.getPassword().equals(password)){
                 Log.d(TAG, "loginUser: Login successful");
                 Toast.makeText(this, "User logged in successfully", Toast.LENGTH_LONG).show();
+                Boolean rememberMe = this.binding.checkRememberMe.isChecked();
 
-                editor.putString("Email", email);
-                editor.putString("Password", password);
-                editor.commit();
+                if(user.getUserStatus()){
+                    session.userLoginSession(email, password, rememberMe);
 
-                this.binding.editEmail.setText("");
-                this.binding.editPassword.setText("");
+                    this.binding.editEmail.setText("");
+                    this.binding.editPassword.setText("");
 
-                Intent i = new Intent(this, HomeActivity.class);
-                this.startActivity(i);
+
+
+                    Intent i = new Intent(this, HomeActivity.class);
+                    this.startActivity(i);
+                } else {
+                        AlertDialog.Builder restoreProfileDialog = new AlertDialog.Builder(this);
+                    restoreProfileDialog.setMessage("We already have your account want to restore it?");
+                    restoreProfileDialog.setTitle("Restore Account");
+                    restoreProfileDialog.setPositiveButton("YES",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Log.d(TAG, "onClick: restore account");
+                                        Intent i = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+                                        startActivity(i);
+                                    }
+                                });
+                    restoreProfileDialog.setNegativeButton("NO",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Log.d(TAG, "onClick: don't restore account");
+
+                                        // delete account from database
+                                        Log.d(TAG, "onClick: " + user.getUserId());
+                                        dao.deleteProfile(user.getUserId());
+
+                                        Toast.makeText(getApplicationContext(), "Profile deleted successfully", Toast.LENGTH_LONG).show();
+
+                                        //create new account
+                                        Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
+                                        startActivity(i);
+
+                                    }
+                                });
+                        AlertDialog alertProfileDialog = restoreProfileDialog.create();
+                        alertProfileDialog.show();
+                }
+
             }
             else{
                 Log.d(TAG, "loginUser: Login failed");
@@ -99,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             Log.e(TAG, "loginUser: No such user exists");
+            Toast.makeText(this, "No such user exists", Toast.LENGTH_LONG).show();
         }
     }
 

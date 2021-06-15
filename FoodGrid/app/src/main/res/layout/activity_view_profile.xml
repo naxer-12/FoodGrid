@@ -10,11 +10,10 @@
         android:id="@+id/iv_logo"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/logo"
         android:layout_margin="40dp"
+        android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -36,12 +35,16 @@
         android:id="@+id/lbl_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_name"
         android:layout_margin="40dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="144dp"
+        android:text="Email"
         android:textSize="20sp"
-        />
+        app:layout_constraintEnd_toStartOf="@+id/tv_email"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
     <TextView
         android:id="@+id/tv_email"
@@ -60,12 +63,14 @@
         android:id="@+id/lbl_phone_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Phone number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lbl_email"
         android:layout_margin="40dp"
+        android:layout_marginEnd="64dp"
+        android:text="Phone number"
         android:textSize="20sp"
-        />
+        app:layout_constraintEnd_toStartOf="@+id/tv_phone_number"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lbl_email" />
 
     <TextView
         android:id="@+id/tv_phone_number"
@@ -84,12 +89,14 @@
         android:id="@+id/lbl_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Address"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lbl_phone_number"
         android:layout_margin="40dp"
+        android:layout_marginEnd="94dp"
+        android:text="Address"
         android:textSize="20sp"
-        />
+        app:layout_constraintEnd_toStartOf="@+id/tv_address"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lbl_phone_number" />
 
     <TextView
         android:id="@+id/tv_address"
@@ -106,12 +113,14 @@
         android:id="@+id/lbl_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_address"
         android:layout_margin="40dp"
+        android:layout_marginEnd="105dp"
+        android:text="Password"
         android:textSize="20sp"
-        />
+        app:layout_constraintEnd_toStartOf="@+id/tv_password"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
     <TextView
         android:id="@+id/tv_password"
@@ -126,16 +135,34 @@
         app:layout_constraintStart_toEndOf="@+id/lbl_password"
         app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
+
     <Button
         android:id="@+id/btn_update_profile"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
+        android:layout_margin="18dp"
+        android:layout_marginBottom="123dp"
         android:backgroundTint="#F0AF51"
-        android:text="Update profile"
+        android:text="Update"
         android:theme="@style/myButtonTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_password" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:layout_marginBottom="123dp"
+        android:backgroundTint="#F0AF51"
+        android:text="Back"
+        android:theme="@style/myButtonTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.24"
+        app:layout_constraintStart_toEndOf="@+id/btn_update_profile"
         app:layout_constraintTop_toBottomOf="@id/tv_password" />
 </androidx.constraintlayout.widget.ConstraintLayout>
