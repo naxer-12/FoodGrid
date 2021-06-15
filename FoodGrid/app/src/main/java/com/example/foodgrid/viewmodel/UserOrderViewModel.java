@@ -24,4 +24,11 @@ public class UserOrderViewModel extends AndroidViewModel {
 
         this.orderRepository.insert(userOrder);
     }
+    public void deleteOrderOfUser(UserOrderModel userOrder) {
+
+        this.orderRepository.delete(userOrder);
+    }
+    public List<UserOrderModel> getAllOrder(long userId) {
+        return this.orderRepository.getOrders(userId);
+    }
 }

@@ -16,6 +16,7 @@ public class UserSession {
     public static final String USER_LOGIN_STATUS = "IsUserLoggedIn";
     public static final String KEY_EMAIL = "Email";
     public static final String KEY_PASSWORD = "Password";
+    public static final String USER_ID = "UserId";
 
     public UserSession(Context context) {
         this.context = context;
@@ -47,11 +48,19 @@ public class UserSession {
     }
 
 
-    public void logout(){
+    public void setUserId(long userId) {
+        editor.putLong(USER_ID, userId);
+        editor.commit();
+    }
+    public long getUserId() {
+        return shared.getLong(USER_ID,0);
+    }
+
+    public void logout() {
         editor.clear();
         editor.commit();
 
-        Intent i  = new Intent(context, MainActivity.class);
+        Intent i = new Intent(context, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);

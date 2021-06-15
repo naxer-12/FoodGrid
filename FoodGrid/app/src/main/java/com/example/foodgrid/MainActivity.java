@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
             Log.d(TAG, "loginUser: User exists");
             if(user.getPassword().equals(password)){
+                session.setUserId(user.getUserId());
+
                 Log.d(TAG, "loginUser: Login successful");
                 Toast.makeText(this, "User logged in successfully", Toast.LENGTH_LONG).show();
                 Boolean rememberMe = this.binding.checkRememberMe.isChecked();

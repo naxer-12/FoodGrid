@@ -5,6 +5,7 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -19,7 +20,7 @@ public class UserOrderModel implements Serializable {
     private String foodQuantity;
     private String additionalInstructions;
 
-    String date;
+    Date date;
     String currentLocation;
 
 
@@ -55,11 +56,11 @@ public class UserOrderModel implements Serializable {
         this.additionalInstructions = additionalInstructions;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -71,7 +72,7 @@ public class UserOrderModel implements Serializable {
         this.currentLocation = currentLocation;
     }
 
-    public UserOrderModel(String foodItem, String foodQuantity, String additionalInstructions, String date, String currentLocation) {
+    public UserOrderModel(String foodItem, String foodQuantity, String additionalInstructions, Date date, String currentLocation) {
         this.foodItem = foodItem;
         this.foodQuantity = foodQuantity;
         this.additionalInstructions = additionalInstructions;
