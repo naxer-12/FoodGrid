@@ -12,6 +12,8 @@ import com.example.foodgrid.databinding.ActivityRegisterBinding;
 import com.example.foodgrid.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
+
+
     private final String TAG = "Maitri";
     private ActivityRegisterBinding binding;
     MyDatabase db = null;
@@ -35,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         binding.btnRegister.setOnClickListener(this::registerUser);
+
     }
 
     public void registerUser(View view){
@@ -97,11 +100,12 @@ public class RegisterActivity extends AppCompatActivity {
             // Create a new Employee object using the form data
              User user = new User(name, email, phoneNumber, address, password, userStatus);
 
+
             // Use the DAO functions to insert the Employee into the database
 
             this.dao.addUser(user);
 
-            Toast.makeText(getApplicationContext(), "User registered successfully", Toast.LENGTH_LONG );
+            Toast.makeText(getApplicationContext(), "User registered successfully", Toast.LENGTH_LONG ).show();
             Log.d(TAG, "registerUser: User registered successfully");
             // Clear the textboxes and prepare for the next data entry
             this.binding.editName.setText("");
@@ -111,7 +115,6 @@ public class RegisterActivity extends AppCompatActivity {
             this.binding.editAddress.setText("");
 
             goToLoginPage();
-
         }
     }
 

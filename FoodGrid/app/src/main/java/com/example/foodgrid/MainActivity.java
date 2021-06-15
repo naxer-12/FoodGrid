@@ -1,9 +1,11 @@
 package com.example.foodgrid;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +13,11 @@ import com.example.foodgrid.databinding.ActivityMainBinding;
 import com.example.foodgrid.model.User;
 
 public class MainActivity extends AppCompatActivity {
+
+    SharedPreferences shared;
+    SharedPreferences.Editor editor;
+    UserSession session;
+
 
     ActivityMainBinding binding;
     private final String TAG = "Maitri";
@@ -20,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        shared = getApplicationContext().getSharedPreferences("User", 0);
+        editor = shared.edit();
+
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -27,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         // initialize database and dao
         this.db = MyDatabase.getDatabase(getApplicationContext());
         this.dao = db.userDao();
+
+        shared = getApplicationContext().getSharedPreferences("User", 0);
+        editor = shared.edit();
+
 
         binding.tvRegisterNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,9 +77,21 @@ public class MainActivity extends AppCompatActivity {
         User user = this.dao.getUser(email);
 
         if(user != null){
+
             Log.d(TAG, "loginUser: User exists");
             if(user.getPassword().equals(password)){
                 Log.d(TAG, "loginUser: Login successful");
+                Toast.makeText(this, "User logged in successfully", Toast.LENGTH_LONG).show();
+
+                editor.putString("Email", email);
+                editor.putString("Password", password);
+                editor.commit();
+
+                this.binding.editEmail.setText("");
+                this.binding.editPassword.setText("");
+
+                Intent i = new Intent(this, HomeActivity.class);
+                this.startActivity(i);
             }
             else{
                 Log.d(TAG, "loginUser: Login failed");

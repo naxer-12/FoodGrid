@@ -21,7 +21,7 @@
     <style name="myButtonTheme" parent="Theme.AppCompat.Light">
         <item name="android:textColorPrimary">@color/orange</item>
         <item name="colorButtonNormal">@color/orange</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/orange</item>
     </style>
 
     <style name="AppTheme.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

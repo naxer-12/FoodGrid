@@ -9,10 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodGrid">
-        <activity android:name=".ForgotPasswordActivity"></activity>
+        <activity android:name=".UpdateProfileActivity"></activity>
+        <activity android:name=".ViewProfileActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".UserOrder" />
-        <activity android:name=".HomeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
