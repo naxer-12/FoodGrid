@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.foodgrid.dao.UserDAO;
 import com.example.foodgrid.databinding.ActivityUpdateProfileBinding;
 import com.example.foodgrid.model.User;
 
@@ -69,38 +70,38 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
                 Boolean hasError = false;
 
-                if(updatedName.trim().isEmpty()){
+                if (updatedName.trim().isEmpty()) {
                     binding.editName.setError("Please enter your name");
                     hasError = true;
                 }
 
-                if(updatedEmail.trim().isEmpty()){
+                if (updatedEmail.trim().isEmpty()) {
                     binding.editEmail.setError("Please enter your email");
                     hasError = true;
                 }
 
-                if(!updatedEmail.matches(emailPattern)){
+                if (!updatedEmail.matches(emailPattern)) {
                     binding.editEmail.setError("Please enter valid email address");
                     hasError = true;
                 }
 
-                if(updatedPhoneNumber.trim().isEmpty()){
+                if (updatedPhoneNumber.trim().isEmpty()) {
                     binding.editPhoneNumber.setError("Please enter your phone number");
                     hasError = true;
                 }
 
-                if(!updatedPhoneNumber.matches(phoneNumberPattern)){
+                if (!updatedPhoneNumber.matches(phoneNumberPattern)) {
                     binding.editPhoneNumber.setError("Please enter valid phone number 111-111-1111");
                 }
 
-                if(updatedAddress.trim().isEmpty()){
+                if (updatedAddress.trim().isEmpty()) {
                     binding.editAddress.setError("Please enter your address");
                     hasError = true;
                 }
 
                 hasError = false;
 
-                if(!hasError){
+                if (!hasError) {
                     dao.updateProfile(user.getUserId(), updatedName, updatedEmail, updatedPhoneNumber, updatedAddress);
 
                     Toast.makeText(getApplicationContext(), "User details updated successfully", Toast.LENGTH_LONG).show();

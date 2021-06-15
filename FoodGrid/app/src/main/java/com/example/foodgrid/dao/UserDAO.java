@@ -29,7 +29,7 @@ public interface UserDAO {
 
     // update userStatus
     @Query("UPDATE users SET userStatus = :updatedUserStatus WHERE userId = :userId")
-    public void updateUserStatus(int userId, Boolean updatedUserStatus);
+    public void updateUserStatus(long userId, Boolean updatedUserStatus);
 
 
     // update profile

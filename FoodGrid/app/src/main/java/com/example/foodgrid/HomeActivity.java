@@ -2,6 +2,7 @@ package com.example.foodgrid;
 
 import android.content.Context;
 import android.content.DialogInterface;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -20,7 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -72,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
         // get user by email
         user = this.dao.getUser(uEmail);
 
-        addDummyData();
+
         adapter = new UserOrderAdapter(this, userOrders);
         fetchData();
         binding.orderList.setAdapter(adapter);
@@ -183,7 +184,7 @@ public class HomeActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void showAlertOptions () {
+    public void showAlertOptions() {
         AlertDialog.Builder deleteOrderDialog = new AlertDialog.Builder(HomeActivity.this);
         deleteOrderDialog.setMessage("Do you want to delete all your existing order details?");
         deleteOrderDialog.setTitle("Delete Info");
@@ -221,12 +222,12 @@ public class HomeActivity extends AppCompatActivity {
                 this.startActivity(i);
                 break;
             }
-            case R.id.action_delete_profile:{
+            case R.id.action_delete_profile: {
                 Log.d(TAG, "onOptionsItemSelected: Delete profile clicked");
                 deleteProfile();
                 break;
             }
-            case R.id.action_logout:{
+            case R.id.action_logout: {
                 Log.d(TAG, "onOptionsItemSelected: Logout clicked");
                 session.logout();
                 finish();
@@ -236,7 +237,7 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void deleteProfile(){
+    private void deleteProfile() {
         Log.d(TAG, "deleteProfile: ");
         AlertDialog.Builder deleteProfileDialog = new AlertDialog.Builder(this);
         deleteProfileDialog.setMessage("Are you sure you want to delete your profile?");
@@ -247,15 +248,15 @@ public class HomeActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         showAlertOptions();
                     }
-        });
+                });
         deleteProfileDialog.setNegativeButton("CANCEL",
                 new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // do nothing
-                Log.d(TAG, "onClick: don't delete profile");
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                        Log.d(TAG, "onClick: don't delete profile");
+                    }
+                });
         AlertDialog alertProfileDialog = deleteProfileDialog.create();
         alertProfileDialog.show();
     }
