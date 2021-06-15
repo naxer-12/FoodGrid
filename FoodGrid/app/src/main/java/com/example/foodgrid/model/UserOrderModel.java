@@ -1,11 +1,35 @@
 package com.example.foodgrid.model;
 
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
+import static androidx.room.ForeignKey.CASCADE;
+
+
+@Entity(tableName = "UserOrders")
 public class UserOrderModel implements Serializable {
+
+
+    @PrimaryKey(autoGenerate = true)
+    private long order_id;
     private String foodItem;
     private String foodQuantity;
     private String additionalInstructions;
+
+    String date;
+    String currentLocation;
+
+
+    @ForeignKey
+            (entity = User.class,
+                    parentColumns = "userId",
+                    childColumns = "userOrderId",
+                    onDelete = CASCADE
+            )
+    private long userOrderId;
 
     public String getFoodItem() {
         return foodItem;
@@ -55,6 +79,19 @@ public class UserOrderModel implements Serializable {
         this.currentLocation = currentLocation;
     }
 
-    String date;
-    String currentLocation;
+    public long getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(long order_id) {
+        this.order_id = order_id;
+    }
+
+    public long getUserOrderId() {
+        return userOrderId;
+    }
+
+    public void setUserOrderId(long userOrderId) {
+        this.userOrderId = userOrderId;
+    }
 }
