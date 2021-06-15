@@ -1,5 +1,6 @@
 package com.example.foodgrid.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class UserOrderAdapter extends RecyclerView.Adapter<ViewHolder> {
     private ArrayList<UserOrderModel> userOrders;
     private Context context;
     private OnItemClickListener clickBack;
+    int LAUNCH_USER_ORDER_ACTIVITY = 1;
 
 
     public UserOrderAdapter(Context context, ArrayList<UserOrderModel> userOrdersConst) {
@@ -42,7 +44,7 @@ public class UserOrderAdapter extends RecyclerView.Adapter<ViewHolder> {
                 Log.d(TAG, "CURRENT POSITION USER" + userOrder.getFoodItem());
                 Intent intent = new Intent(context, UserOrder.class);
                 intent.putExtra("USER_ORDER", (Serializable) userOrder);
-                context.startActivity(intent);
+                ((Activity) context).startActivityForResult(intent, LAUNCH_USER_ORDER_ACTIVITY);
 
 
             }

@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         shared = getApplicationContext().getSharedPreferences("User", 0);
         editor = shared.edit();
+        session = new UserSession(getApplicationContext());
 
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -39,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
         this.db = MyDatabase.getDatabase(getApplicationContext());
         this.dao = db.userDao();
 
-        shared = getApplicationContext().getSharedPreferences("User", 0);
-        editor = shared.edit();
 
 
         binding.tvRegisterNow.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
             Log.d(TAG, "loginUser: User exists");
             if(user.getPassword().equals(password)){
+                session.setUserId(user.getUserId());
+
                 Log.d(TAG, "loginUser: Login successful");
                 Toast.makeText(this, "User logged in successfully", Toast.LENGTH_LONG).show();
 

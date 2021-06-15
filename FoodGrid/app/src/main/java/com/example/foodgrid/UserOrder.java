@@ -1,8 +1,10 @@
 package com.example.foodgrid;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
@@ -15,6 +17,7 @@ import com.example.foodgrid.model.UserOrderModel;
 
 import org.joda.time.DateTimeComparator;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class UserOrder extends AppCompatActivity {
     private final Calendar calendar = Calendar.getInstance();
     private final String dateFormat = "MM/dd/yy";
     private final SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.US);
+    UserOrderModel userOrderModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +43,10 @@ public class UserOrder extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(UserOrder.this, R.layout.support_simple_spinner_dropdown_item, getQuantity());
         activityUserOrderBinding.foodQuantitySpinnerLayout.setAdapter(adapter);
         Intent i = getIntent();
-        UserOrderModel userOrderModel = (UserOrderModel) i.getSerializableExtra("USER_ORDER");
+        userOrderModel = (UserOrderModel) i.getSerializableExtra("USER_ORDER");
         if (userOrderModel != null) {
+            activityUserOrderBinding.dateOfOrder.setText(sdf.format(userOrderModel.getDate()));
+            activityUserOrderBinding.dateOfOrderTextInputLayout.setEnabled(false);
             activityUserOrderBinding.addOrder.setText("Update Data");
         }
 
@@ -91,7 +97,45 @@ public class UserOrder extends AppCompatActivity {
                 boolean checkOrder = checkValidation();
                 if (checkOrder) {
                     clearError();
-                    //TODO add order
+//                    Log.d(TAG, "ORDER ID 1" + userOrderModel.getOrder_id());
+                    try {
+
+                        if (userOrderModel != null) {
+                            long order_Id = userOrderModel.getOrder_id();
+                            userOrderModel = new UserOrderModel(
+
+                                    activityUserOrderBinding.foodItemTextInputLayout.getEditText().getText().toString(),
+                                    activityUserOrderBinding.foodQuantitySpinnerLayout.getText().toString(),
+                                    activityUserOrderBinding.notesTextInputLayout.getEditText().getText().toString(),
+                                    sdf.parse(activityUserOrderBinding.dateOfOrderTextInputLayout.getEditText().getText().toString()),
+                                    activityUserOrderBinding.address.getEditText().getText().toString());
+                            userOrderModel.setOrder_id(order_Id);
+                        } else {
+                            userOrderModel = new UserOrderModel(
+
+                                    activityUserOrderBinding.foodItemTextInputLayout.getEditText().getText().toString(),
+                                    activityUserOrderBinding.foodQuantitySpinnerLayout.getText().toString(),
+                                    activityUserOrderBinding.notesTextInputLayout.getEditText().getText().toString(),
+                                    sdf.parse(activityUserOrderBinding.dateOfOrderTextInputLayout.getEditText().getText().toString()),
+                                    activityUserOrderBinding.address.getEditText().getText().toString());
+                        }
+
+
+                        Log.d(TAG, "ORDER ID 2" + userOrderModel.getOrder_id());
+
+                        Intent intent = new Intent();
+                        intent.putExtra("USER_ORDER_DATA", (Serializable) userOrderModel);
+
+                        Log.d(TAG, "ITEM ADDED TO ORDER INSIDE ACTIVITYY");
+
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
                 }
             }
         });
