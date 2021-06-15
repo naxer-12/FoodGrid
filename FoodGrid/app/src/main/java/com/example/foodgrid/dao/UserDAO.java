@@ -1,18 +1,22 @@
-package com.example.foodgrid;
+package com.example.foodgrid.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.example.foodgrid.UserOrder;
 import com.example.foodgrid.model.User;
+import com.example.foodgrid.model.UserOrderModel;
+
+import java.util.List;
 
 @Dao
 public interface UserDAO {
 
     // add
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    public void addUser (User user);
+    public void addUser(User user);
 
     // update password
     @Query("UPDATE users SET password = :updatedPassword WHERE userId = :userId")
@@ -30,11 +34,16 @@ public interface UserDAO {
 //    @Query("SELECT * FROM users WHERE email = :email ")
 //    public User getUser(String email);
 
-//    @Query("SELECT user.name AS userName, book.name AS bookName " +
+    //    @Query("SELECT user.name AS userName, book.name AS bookName " +
 //            "FROM user, book " +
 //            "WHERE user.id = book.user_id")
 //    public LiveData<List<UserBook>> loadUserAndBookNames();
     @Query("SELECT * FROM users WHERE email = :email")
     public User getUser(String email);
+
+
+    @Insert
+    void insertOrder(UserOrderModel userOrder);
+
 
 }

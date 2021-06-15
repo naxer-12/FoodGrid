@@ -9,7 +9,7 @@ public class User {
     // User: id(int), name(varchar), email(varchar), contact number(varchar), address(varchar), password(varchar), user_status(boolean)
 
     @PrimaryKey(autoGenerate = true)
-    int userId; // primary key
+     long userId; // primary key
 
     String name;
     String email;
@@ -41,7 +41,7 @@ public class User {
                 '}';
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 

@@ -6,12 +6,14 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.foodgrid.dao.UserDAO;
 import com.example.foodgrid.model.User;
+import com.example.foodgrid.model.UserOrderModel;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, UserOrderModel.class}, version = 1, exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
 
     public abstract UserDAO userDao();
@@ -21,7 +23,7 @@ public abstract class MyDatabase extends RoomDatabase {
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static MyDatabase getDatabase(final Context context) {
+    public static MyDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (MyDatabase.class) {
                 if (INSTANCE == null) {

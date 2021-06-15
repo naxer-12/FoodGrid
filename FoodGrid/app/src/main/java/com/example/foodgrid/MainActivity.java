@@ -7,6 +7,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.foodgrid.dao.UserDAO;
 import com.example.foodgrid.databinding.ActivityMainBinding;
 import com.example.foodgrid.model.User;
 
