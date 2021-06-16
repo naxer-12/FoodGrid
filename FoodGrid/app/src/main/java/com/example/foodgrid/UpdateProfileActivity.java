@@ -73,33 +73,50 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 if (updatedName.trim().isEmpty()) {
                     binding.editName.setError("Please enter your name");
                     hasError = true;
+                } else {
+                    binding.editName.setError(null);
+                    hasError = false;
                 }
 
                 if (updatedEmail.trim().isEmpty()) {
                     binding.editEmail.setError("Please enter your email");
                     hasError = true;
+                } else {
+                    binding.editEmail.setError(null);
+                    hasError = false;
                 }
 
                 if (!updatedEmail.matches(emailPattern)) {
                     binding.editEmail.setError("Please enter valid email address");
                     hasError = true;
+                } else {
+                    binding.editEmail.setError(null);
+                    hasError = false;
                 }
 
                 if (updatedPhoneNumber.trim().isEmpty()) {
                     binding.editPhoneNumber.setError("Please enter your phone number");
                     hasError = true;
+                } else {
+                    binding.editPhoneNumber.setError(null);
+                    hasError = false;
                 }
 
                 if (!updatedPhoneNumber.matches(phoneNumberPattern)) {
                     binding.editPhoneNumber.setError("Please enter valid phone number 111-111-1111");
+                } else {
+                    binding.editPhoneNumber.setError(null);
+                    hasError = false;
                 }
 
                 if (updatedAddress.trim().isEmpty()) {
                     binding.editAddress.setError("Please enter your address");
                     hasError = true;
+                } else {
+                    binding.editAddress.setError(null);
+                    hasError = false;
                 }
 
-                hasError = false;
 
                 if (!hasError) {
                     dao.updateProfile(user.getUserId(), updatedName, updatedEmail, updatedPhoneNumber, updatedAddress);

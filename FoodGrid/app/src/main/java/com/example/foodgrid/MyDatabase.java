@@ -15,7 +15,7 @@ import com.example.foodgrid.model.UserOrderModel;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, UserOrderModel.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, UserOrderModel.class}, version = 2, exportSchema = false)
 @TypeConverters({DateConverters.class})
 public abstract class MyDatabase extends RoomDatabase {
 

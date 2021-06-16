@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -183,13 +184,17 @@ public class HomeActivity extends AppCompatActivity {
         AlertDialog.Builder deleteOrderDialog = new AlertDialog.Builder(HomeActivity.this);
         deleteOrderDialog.setMessage("Do you want to delete all your existing order details?");
         deleteOrderDialog.setTitle("Delete Info");
-        Log.d(TAG, "onClick: yes delete profile");
+
         deleteOrderDialog.setPositiveButton("YES",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // delete all orders of this user
                         Log.d(TAG, "onClick: yes delete orders");
+                        dao.deleteAllUserOrders(user.getUserId());
+                        dao.updateUserStatus(user.getUserId(), false);
+                        Toast.makeText(getApplicationContext(), "All your orders are deleted", Toast.LENGTH_LONG).show();
+                        session.logout();
                     }
                 });
         deleteOrderDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -197,11 +202,12 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 // keep all orders on database and set user to be inactive
                 Log.d(TAG, "onClick: don't delete orders");
+                dao.updateUserStatus(user.getUserId(), false);
+                session.logout();
 
             }
         });
-        dao.updateUserStatus(user.getUserId(), false);
-        session.logout();
+
 
         AlertDialog alertOrderDialog = deleteOrderDialog.create();
         alertOrderDialog.show();
@@ -241,6 +247,7 @@ public class HomeActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "onClick: yes delete profile" );
                         showAlertOptions();
                     }
                 });

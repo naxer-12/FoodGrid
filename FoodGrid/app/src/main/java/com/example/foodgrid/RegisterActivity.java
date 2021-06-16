@@ -64,38 +64,67 @@ public class RegisterActivity extends AppCompatActivity {
         if (name.trim().isEmpty()) {
             this.binding.editName.setError("Please enter your name");
             hasError = true;
+            Log.d(TAG, "registerUser: " + hasError);
+        } else {
+            this.binding.editName.setError(null);
+            hasError = false;
         }
 
         if (email.trim().isEmpty()) {
             this.binding.editEmail.setError("Please enter your email");
             hasError = true;
+            Log.d(TAG, "registerUser: " + hasError);
+        } else {
+            this.binding.editEmail.setError(null);
+            hasError = false;
         }
 
         if (!email.matches(emailPattern)) {
             this.binding.editEmail.setError("Please enter valid email address");
             hasError = true;
+            Log.d(TAG, "registerUser: " + hasError);
+        } else {
+            this.binding.editEmail.setError(null);
+            hasError = false;
         }
 
         if (phoneNumber.trim().isEmpty()) {
             this.binding.editPhoneNumber.setError("Please enter your phone number");
             hasError = true;
+            Log.d(TAG, "registerUser: " + hasError);
+        } else {
+            this.binding.editPhoneNumber.setError(null);
+            hasError = false;
         }
 
         if (!phoneNumber.matches(phoneNumberPattern)) {
             this.binding.editPhoneNumber.setError("Please enter valid phone number 111-111-1111");
+            hasError = true;
+            Log.d(TAG, "registerUser: " + hasError);
+        } else {
+            this.binding.editPhoneNumber.setError(null);
+            hasError = false;
         }
 
         if (address.trim().isEmpty()) {
             this.binding.editAddress.setError("Please enter your address");
             hasError = true;
+            Log.d(TAG, "registerUser: " + hasError);
+        } else {
+            this.binding.editAddress.setError(null);
+            hasError = false;
         }
 
         if (password.trim().isEmpty()) {
             this.binding.editPassword.setError("Please enter password");
             hasError = true;
+            Log.d(TAG, "registerUser: " + hasError);
+        } else {
+            this.binding.editPassword.setError(null);
+            hasError = false;
         }
 
-        hasError = false;
+
 
         Log.d(TAG, "registerUser: " + hasError);
         if (!hasError) {

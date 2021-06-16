@@ -70,6 +70,10 @@ public interface UserDAO {
     @Query("DELETE FROM UserOrders WHERE userOrderId =:userId AND order_id=:orderID")
     void deleteOrder(long userId, long orderID);
 
+    //DELETE ALL ORDERS
+    @Query("DELETE FROM UserOrders WHERE userOrderId = :userId")
+    void deleteAllUserOrders(long userId);
+
     @Query("SELECT * FROM UserOrders WHERE userOrderId =:userId ORDER BY date DESC")
     List<UserOrderModel> getAllOrders(long userId);
 
