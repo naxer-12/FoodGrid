@@ -41,8 +41,6 @@
         android:layout_marginEnd="144dp"
         android:text="Email"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_email"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
@@ -67,8 +65,6 @@
         android:layout_marginEnd="64dp"
         android:text="Phone number"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_phone_number"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lbl_email" />
 
@@ -93,8 +89,6 @@
         android:layout_marginEnd="94dp"
         android:text="Address"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_address"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lbl_phone_number" />
 
@@ -103,9 +97,12 @@
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
+        android:layout_marginLeft="75dp"
         android:text="Your address"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/tv_password"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/lbl_address"
         app:layout_constraintTop_toBottomOf="@id/tv_phone_number" />
 
@@ -117,8 +114,6 @@
         android:layout_marginEnd="105dp"
         android:text="Password"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_password"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_address" />
 

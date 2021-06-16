@@ -103,11 +103,10 @@ public class MainActivity extends AppCompatActivity {
                     this.finish();
 
                 } else {
-                    AlertDialog.Builder restoreProfileDialog = new AlertDialog.Builder(this);
-                    restoreProfileDialog.setMessage("We already have your account want to restore it?");
-                    restoreProfileDialog.setTitle("Restore Account");
-                    restoreProfileDialog.setPositiveButton("YES",
-                            new DialogInterface.OnClickListener() {
+                            AlertDialog.Builder restoreProfileDialog = new AlertDialog.Builder(this);
+                            restoreProfileDialog.setMessage("We already have your account want to restore it?");
+                            restoreProfileDialog.setTitle("Restore Account");
+                            restoreProfileDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Log.d(TAG, "onClick: restore account");
@@ -115,8 +114,7 @@ public class MainActivity extends AppCompatActivity {
                                     startActivity(i);
                                 }
                             });
-                    restoreProfileDialog.setNegativeButton("NO",
-                            new DialogInterface.OnClickListener() {
+                            restoreProfileDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Log.d(TAG, "onClick: don't restore account");
@@ -139,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
             } else {
                 Log.d(TAG, "loginUser: Login failed");
+                Toast.makeText(this, "Wrong password", Toast.LENGTH_LONG).show();
             }
         } else {
             Log.e(TAG, "loginUser: No such user exists");
