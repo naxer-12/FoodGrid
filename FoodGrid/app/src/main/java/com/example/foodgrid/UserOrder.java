@@ -64,8 +64,14 @@ public class UserOrder extends AppCompatActivity {
         userOrderModel = (UserOrderModel) i.getSerializableExtra("USER_ORDER");
         if (userOrderModel != null) {
             activityUserOrderBinding.dateOfOrder.setText(sdf.format(userOrderModel.getDate()));
+            activityUserOrderBinding.foodItemText.setText(userOrderModel.getFoodItem());
+            activityUserOrderBinding.foodQuantitySpinnerLayout.setText(userOrderModel.getFoodQuantity());
+            activityUserOrderBinding.notesText.setText(userOrderModel.getAdditionalInstructions());
+            activityUserOrderBinding.addressText.setText(userOrderModel.getCurrentLocation());
+
             activityUserOrderBinding.dateOfOrderTextInputLayout.setEnabled(false);
             activityUserOrderBinding.addOrder.setText("Update Data");
+
         }
 
 
