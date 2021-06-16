@@ -67,81 +67,80 @@ public class MainActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(this::loginUser);
     }
 
-    public void loginUser(View view){
+    public void loginUser(View view) {
         String email = this.binding.editEmail.getText().toString();
         String password = this.binding.editPassword.getText().toString();
 
-        if(email.trim().isEmpty()){
+        if (email.trim().isEmpty()) {
             this.binding.editEmail.setError("Please enter your email address");
         }
 
-        if(password.trim().isEmpty()){
+        if (password.trim().isEmpty()) {
             this.binding.editPassword.setError("Please enter your password");
         }
 
         User user = this.dao.getUser(email);
 
-        if(user != null){
+        if (user != null) {
 
             Log.d(TAG, "loginUser: User exists");
-            if(user.getPassword().equals(password)){
+            if (user.getPassword().equals(password)) {
                 session.setUserId(user.getUserId());
 
                 Log.d(TAG, "loginUser: Login successful");
                 Toast.makeText(this, "User logged in successfully", Toast.LENGTH_LONG).show();
                 Boolean rememberMe = this.binding.checkRememberMe.isChecked();
 
-                if(user.getUserStatus()){
+                if (user.getUserStatus()) {
                     session.userLoginSession(email, password, rememberMe);
 
                     this.binding.editEmail.setText("");
                     this.binding.editPassword.setText("");
 
 
-
                     Intent i = new Intent(this, HomeActivity.class);
                     this.startActivity(i);
+                    this.finish();
+
                 } else {
-                        AlertDialog.Builder restoreProfileDialog = new AlertDialog.Builder(this);
+                    AlertDialog.Builder restoreProfileDialog = new AlertDialog.Builder(this);
                     restoreProfileDialog.setMessage("We already have your account want to restore it?");
                     restoreProfileDialog.setTitle("Restore Account");
                     restoreProfileDialog.setPositiveButton("YES",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Log.d(TAG, "onClick: restore account");
-                                        Intent i = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
-                                        startActivity(i);
-                                    }
-                                });
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Log.d(TAG, "onClick: restore account");
+                                    Intent i = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+                                    startActivity(i);
+                                }
+                            });
                     restoreProfileDialog.setNegativeButton("NO",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Log.d(TAG, "onClick: don't restore account");
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Log.d(TAG, "onClick: don't restore account");
 
-                                        // delete account from database
-                                        Log.d(TAG, "onClick: " + user.getUserId());
-                                        dao.deleteProfile(user.getUserId());
+                                    // delete account from database
+                                    Log.d(TAG, "onClick: " + user.getUserId());
+                                    dao.deleteProfile(user.getUserId());
 
-                                        Toast.makeText(getApplicationContext(), "Profile deleted successfully", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Profile deleted successfully", Toast.LENGTH_LONG).show();
 
-                                        //create new account
-                                        Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
-                                        startActivity(i);
+                                    //create new account
+                                    Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
+                                    startActivity(i);
 
-                                    }
-                                });
-                        AlertDialog alertProfileDialog = restoreProfileDialog.create();
-                        alertProfileDialog.show();
+                                }
+                            });
+                    AlertDialog alertProfileDialog = restoreProfileDialog.create();
+                    alertProfileDialog.show();
                 }
 
-            }
-            else{
+            } else {
                 Log.d(TAG, "loginUser: Login failed");
             }
-        }
-        else{
+        } else {
             Log.e(TAG, "loginUser: No such user exists");
             Toast.makeText(this, "No such user exists", Toast.LENGTH_LONG).show();
         }

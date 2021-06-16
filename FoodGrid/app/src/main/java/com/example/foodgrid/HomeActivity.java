@@ -160,11 +160,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void fetchData() {
-//        UserOrderModel userOrderModel = new UserOrderModel("Gulab jamun", "5 Kg", "MAKE IT GOOD", new Date().toString(), "TORONTO");
-//        userOrders.add(userOrderModel);
-//
-//        userOrderModel = new UserOrderModel("Gulab jamun2", "5 Kg", "MAKE IT GOOD", new Date().toString(), "TORONTO");
-//        userOrders.add(userOrderModel);
         userOrders.clear();
         if (userOrderViewModel.getAllOrder(session.getUserId()).isEmpty()) {
             binding.emptyTextview.setText("No data found");

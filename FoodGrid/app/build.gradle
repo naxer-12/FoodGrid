@@ -46,5 +46,13 @@ dependencies {
     implementation "androidx.room:room-runtime:2.2.5"
     annotationProcessor "androidx.room:room-compiler:2.2.5"
     androidTestImplementation "androidx.room:room-testing:2.2.5"
+
+
+    // location services
+    //for accessing the location services using Google Play Services
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+
+    //to use Google Maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
     
 }

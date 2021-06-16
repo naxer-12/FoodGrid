@@ -3,6 +3,10 @@ package com.example.foodgrid;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,10 +14,16 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
 import com.example.foodgrid.databinding.ActivityUserOrderBinding;
+import com.example.foodgrid.helper.LocationHelper;
 import com.example.foodgrid.model.UserOrderModel;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.joda.time.DateTimeComparator;
 
@@ -23,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class UserOrder extends AppCompatActivity {
@@ -33,6 +44,13 @@ public class UserOrder extends AppCompatActivity {
     private final Calendar calendar = Calendar.getInstance();
     private final String dateFormat = "MM/dd/yy";
     private final SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.US);
+    private LocationHelper locationHelper;
+    private Location lastLocation;
+    private LocationCallback locationCallback;
+
+    private LatLng currentLocation;
+
+    private String currentAddressLine;
     UserOrderModel userOrderModel;
 
     @Override
@@ -50,6 +68,7 @@ public class UserOrder extends AppCompatActivity {
             activityUserOrderBinding.addOrder.setText("Update Data");
         }
 
+
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -64,6 +83,41 @@ public class UserOrder extends AppCompatActivity {
 
 
         };
+        this.locationHelper = LocationHelper.getInstance();
+        this.locationHelper.checkPermissions(this);
+
+
+        if (this.locationHelper.locationPermissionGranted) {
+            Log.d(TAG, "onCreate: Location Permission Granted");
+
+            //get the device location
+//            this.lastLocation = this.locationHelper.getLastLocation(this);
+
+//            keep getting locattion updates
+            this.initiateLocationListener();
+
+            this.locationHelper.getLastLocation(this).observe(this, new Observer<Location>() {
+                @Override
+                public void onChanged(Location location) {
+
+                    if (location != null) {
+
+                        lastLocation = location;
+//                        binding.tvLocationInfo.setText(lastLocation.toString());
+                        String obtainedAddress = locationHelper.getAddress(getApplicationContext(), lastLocation);
+//                        binding.tvLocationInfo.setText(obtainedAddress);
+                        Log.d(TAG, "onCreate: Last Location obtained " + lastLocation.toString());
+                    }
+                }
+            });
+
+//            if (this.lastLocation != null) {
+//                this.binding.tvLocationInfo.setText(this.lastLocation.toString());
+//                Log.d(TAG, "onCreate: Last Location obtained " + this.lastLocation.toString());
+//            }else{
+//                Log.e(TAG, "onCreate: No last location received so far");
+//            }
+        }
         activityUserOrderBinding.dateOfOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +162,7 @@ public class UserOrder extends AppCompatActivity {
                                     activityUserOrderBinding.foodQuantitySpinnerLayout.getText().toString(),
                                     activityUserOrderBinding.notesTextInputLayout.getEditText().getText().toString(),
                                     sdf.parse(activityUserOrderBinding.dateOfOrderTextInputLayout.getEditText().getText().toString()),
-                                    activityUserOrderBinding.address.getEditText().getText().toString());
+                                    getCurrentLocation());
                             userOrderModel.setOrder_id(order_Id);
                         } else {
                             userOrderModel = new UserOrderModel(
@@ -117,7 +171,7 @@ public class UserOrder extends AppCompatActivity {
                                     activityUserOrderBinding.foodQuantitySpinnerLayout.getText().toString(),
                                     activityUserOrderBinding.notesTextInputLayout.getEditText().getText().toString(),
                                     sdf.parse(activityUserOrderBinding.dateOfOrderTextInputLayout.getEditText().getText().toString()),
-                                    activityUserOrderBinding.address.getEditText().getText().toString());
+                                    getCurrentLocation());
                         }
 
 
@@ -140,6 +194,91 @@ public class UserOrder extends AppCompatActivity {
             }
         });
 
+
+        activityUserOrderBinding.viewLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!activityUserOrderBinding.address.getEditText().getText().toString().isEmpty()) {
+                    Geocoder geoCoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                    try {
+                        List<Address> addresses = geoCoder.getFromLocationName(activityUserOrderBinding.address.getEditText().getText().toString(), 1);
+                        if (addresses.size() > 0) {
+
+                            currentLocation = new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
+
+                            Log.d("Latitude", "" + addresses.get(0).getLatitude());
+                            Log.d("Longitude", "" + addresses.get(0).getLongitude());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    currentLocation = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+                }
+
+
+                Intent mapIntent = new Intent(getApplicationContext(), MapsActivity.class);
+                mapIntent.putExtra("CURRENT_LAT", currentLocation.latitude);
+                mapIntent.putExtra("CURRENT_LNG", currentLocation.longitude);
+                mapIntent.putExtra("RESTAURANT_LAT", 22.998729);
+                mapIntent.putExtra("RESTAURANT_LNG", 72.533706);
+                startActivity(mapIntent);
+            }
+        });
+
+    }
+
+    private String getCurrentLocation() {
+        if (activityUserOrderBinding.currentLocationSwitch.isChecked()) {
+            return currentAddressLine;
+        } else {
+            return activityUserOrderBinding.address.getEditText().getText().toString();
+        }
+    }
+
+    private void initiateLocationListener() {
+        this.locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+
+                for (Location loc : locationResult.getLocations()) {
+                    lastLocation = loc;
+                    currentAddressLine = locationHelper.getAddress(getApplicationContext(), loc);
+                    Log.e(TAG, "onLocationResult: update location " + currentAddressLine);
+                }
+            }
+        };
+
+        this.locationHelper.requestLocationUpdates(this, this.locationCallback);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == this.locationHelper.REQUEST_CODE_LOCATION) {
+            this.locationHelper.locationPermissionGranted = (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED);
+
+            if (this.locationHelper.locationPermissionGranted) {
+                //get the device location
+                Log.d(TAG, "onCreate: Location Permission Granted - " + this.locationHelper.locationPermissionGranted);
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.locationHelper.stopLocationUpdates(this, this.locationCallback);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.locationHelper.requestLocationUpdates(this, this.locationCallback);
     }
 
     private void clearError() {
@@ -186,9 +325,9 @@ public class UserOrder extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if (activityUserOrderBinding.currentLocationSwitch.isChecked()) {
+        if (!activityUserOrderBinding.currentLocationSwitch.isChecked() && activityUserOrderBinding.address.getEditText().getText().toString().isEmpty()) {
             //TODO select current location
-        } else if (activityUserOrderBinding.address.getEditText().getText().toString().isEmpty()) {
+
             activityUserOrderBinding.address.setError("Please enter address");
             validate = false;
         }
